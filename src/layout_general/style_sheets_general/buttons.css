@@ -1,0 +1,18 @@
+.trybe-btn-1 {
+  background-color: #063B27;
+  border: 3px inset #033;
+  color: white;
+}
+
+.trybe-btn-1:hover:enabled {
+  background-color: white;
+  color:#063B27;
+  transition-duration: 1s;
+  cursor: pointer;
+}
+
+.trybe-btn-1:disabled {
+  background-color: rgba(0, 51, 0, 0.3);
+  border: 3px inset rgba(0, 51, 0, 0.3);
+}
+

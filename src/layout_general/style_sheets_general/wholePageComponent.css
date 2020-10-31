@@ -1,0 +1,42 @@
+@media screen and (max-width: 800px) {
+  .whole-page-container {
+    width: calc(100% - 20vw);
+  }
+}
+
+@media screen and (min-width: 801px) {
+  .whole-page-container {
+    width: calc(100% - 50vw);
+  }
+}
+
+.whole-page {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.whole-page-container {
+  border: 3px solid #033;
+  margin: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.whole-page-container input {
+  margin-top: 20px;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid #063B27;
+}
+
+.whole-page-container input:focus {
+  outline: 1px inset #063B27;
+  box-shadow: 0px 0px 2px 2px #063B27;
+  transition-duration: 0.3s;
+}

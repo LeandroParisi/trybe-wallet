@@ -1,0 +1,60 @@
+@media screen and (max-width: 800px) {
+  .login-container {
+    width: calc(100% - 20vw);
+  }
+}
+
+@media screen and (min-width: 801px) {
+  .login-container {
+    width: calc(100% - 50vw);
+  }
+}
+
+.login-page {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  border: 3px solid #033;
+  margin: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.login-container input {
+  margin-top: 20px;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid #063B27;
+}
+
+.login-container input:focus {
+  outline: 1px inset #063B27;
+  box-shadow: 0px 0px 2px 2px #063B27;
+  transition-duration: 0.3s;
+}
+
+.login-container .input-error {
+  border-bottom: 3px solid red;
+  transition: 0.8s;
+}
+
+.email-error {
+ font-size: calc(8px + 0.8vw);
+ margin-top: 10px;
+ border: 1px solid red;
+ padding: 5px;
+ transition: 1s;
+ color: red;
+}
+
+.trybe-btn-1 {
+  margin-top: 40px;
+}
