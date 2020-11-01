@@ -1,0 +1,18 @@
+.transaction-control-selectors {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.transaction-control-selectors .filter-container {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.transaction-control-selectors .filter-container .mini-title {
+  align-self: flex-start;
+  font-size: calc(13px + 0.1vw);
+}

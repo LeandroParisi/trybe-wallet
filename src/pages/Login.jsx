@@ -89,7 +89,7 @@ class Login extends React.Component {
 
   render() {
     if(this.state.redirect) {
-      return <Redirect to='/carteira' />
+      return <Redirect to='/wallet' />
     }
     const { emailVerified = 0, passwordVerified = 0, emailInputError, passwordInputError } = this.state;
     return (

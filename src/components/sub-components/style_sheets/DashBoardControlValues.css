@@ -1,0 +1,24 @@
+.icon-value-container span.Expense {
+  color: rgb(150, 0, 0);
+  background-color: transparent;
+  border: none;
+}
+
+.icon-value-container .Expense {
+  color: white;
+  background-color: rgb(150, 0, 0);
+  border: 1px solid  rgb(150, 0, 0); 
+}
+
+.icon-value-container span.Income {
+  color: rgb(6,59,39);
+  background-color: transparent;
+  border: none;
+}
+
+.icon-value-container .Income {
+  color: white;
+  background-color: rgb(6,59,39);
+  border: 1px solid  rgb(6,59,39); 
+}
+

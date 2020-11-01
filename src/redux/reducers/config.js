@@ -7,13 +7,15 @@ const INITIAL_STATE = {
     'Education',
     'Personal expenses',
     'Leisure',
-    'Salário'
+    'Salary'
   ],
   accounts: [
     'Wallet',
-    'Current account',
+    'Checking account',
     'Savings account'
-  ]
+  ],
+  typeOfTransactions: ['Expense', 'Income', 'Transfer']
+
 }
 
 export default function config(state = INITIAL_STATE, action) {

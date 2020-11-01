@@ -1,0 +1,51 @@
+.autocomplete-container ul {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+.autocomplete-container ul.Expense {
+  outline: 0.5px inset rgb(200, 0, 0);
+  box-shadow: 0px 0px 1px 1px rgb(200, 0, 0);
+  transition-duration: 0.3s;
+}
+
+.autocomplete-container ul.Income {
+  outline: 1px inset rgb(40, 140, 40);
+  box-shadow: 0px 0px 2px 2px rgb(40, 140, 40);
+  transition-duration: 0.3s;
+}
+
+.autocomplete-container ul.Transfer {
+  outline: 1px inset indigo;
+  box-shadow: 0px 0px 2px 2px indigo;
+  transition-duration: 0.3s;
+}
+
+.autocomplete-container li {
+  background-color: transparent;
+  list-style: none;
+  margin: 0;
+  cursor: pointer;
+}
+
+.autocomplete-container li.Expense:hover {
+  color: rgb(200, 0, 0);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.autocomplete-container li.Income:hover {
+  color: rgb(40, 140, 40);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.autocomplete-container li.Transfer:hover {
+  color: indigo;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+/* .autocompon */

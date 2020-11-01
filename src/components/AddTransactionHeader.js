@@ -14,8 +14,7 @@ class AddTransactionHeader extends React.Component {
   }
 
   render() {
-    const { transactionType, selectedTransaction } = this.props;
-    const typeOfTransactions = ['Expense', 'Income', 'Transfer']
+    const { transactionType, selectedTransaction, typeOfTransactions } = this.props;
     const selected = 'header-item selected';
     const unselected = 'header-item'
     return (
@@ -33,4 +32,8 @@ class AddTransactionHeader extends React.Component {
   }
 }
 
-export default AddTransactionHeader;
+const mapStateToProps = (state) => ({
+  typeOfTransactions: state.config.typeOfTransactions,
+})
+
+export default connect(mapStateToProps)(AddTransactionHeader);

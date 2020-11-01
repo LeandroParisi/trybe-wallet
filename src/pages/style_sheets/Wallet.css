@@ -13,6 +13,16 @@
   height: 15vh;
 }
 
+.wallet-body {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  margin-top: 5%;
+}
+
 .register-expense-button {
   position: absolute;
   right: 10px;

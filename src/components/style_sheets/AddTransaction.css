@@ -131,3 +131,8 @@ input.Transfer:focus, select.Transfer:focus {
   transition-duration: 1s;
   cursor: pointer;
 }
+
+select { 
+  width: 250px; 
+  text-align-last: center; 
+}
