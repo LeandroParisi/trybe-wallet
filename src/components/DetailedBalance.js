@@ -82,14 +82,14 @@ class DetailedBalance extends React.Component {
             <div className="transaction-control-selectors">
               <label htmlFor='transactionType' className='filter-container'>
                 <span className='mini-title'>Transaction Type</span>
-                <select id='transactionType' className="wallet-filters" name="transactionType" onChange={ (event) => this.handleSelectChange(event) }>
+                <select id='transactionType' className="select-filter" name="transactionType" onChange={ (event) => this.handleSelectChange(event) }>
                   { typeOfTransactions.map(type => <option>{ type }</option>)}
                 </select>
               </label> 
 
               <label htmlFor='category' className='filter-container'>
                 <span className='mini-title'>Category</span>
-                <select id='category' className="wallet-filters" name="category" onChange={ (event) => this.handleSelectChange(event) }>
+                <select id='category' className="select-filter" name="category" onChange={ (event) => this.handleSelectChange(event) }>
                   <option selected>All</option>
                   { categories.map(category => <option>{ category }</option>)}
                 </select>
@@ -97,7 +97,7 @@ class DetailedBalance extends React.Component {
 
               <label htmlFor='paymentMethod' className='filter-container'>
                 <span className='mini-title'>Payment Method</span>
-                <select id='paymentMethod' className="wallet-filters" name="paymentMethod" onChange={ (event) => this.handleSelectChange(event) }>
+                <select id='paymentMethod' className="select-filter" name="paymentMethod" onChange={ (event) => this.handleSelectChange(event) }>
                   <option selected>All</option>
                   { paymentMethods.map(method => <option>{ method }</option>)}
                 </select>
@@ -115,7 +115,6 @@ class DetailedBalance extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  transactions: state.wallet.transactions,
   paymentMethods: state.config.paymentMethods,
   categories: state.config.categories,
   typeOfTransactions: state.config.typeOfTransactions,

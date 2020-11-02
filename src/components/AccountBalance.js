@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import DashboardControlValues from './sub-components/DashboardControlValues';
 
 class AccountBalance extends Component {
@@ -52,8 +51,4 @@ class AccountBalance extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  transactions: state.wallet.transactions,
-})
-
-export default connect(mapStateToProps)(AccountBalance);
+export default AccountBalance;

@@ -14,7 +14,7 @@
   text-align: center;
 }
 
-.wallet-filters {
+.select-filter {
   border: none;
   border-bottom: 1px solid rgb(0,51,0);
   background-color: transparent;
@@ -22,7 +22,7 @@
   font-size: calc(16px + 0.3vw);
 }
 
-.wallet-filters:hover {
+.select-filter:hover {
   border-bottom: 2.5px solid rgb(0,51,0);
   transition-duration: 0.2s;
   transition-timing-function: ease-in;

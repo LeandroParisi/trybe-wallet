@@ -13,6 +13,11 @@
   height: 15vh;
 }
 
+.month-filter.select-filter {
+  margin-bottom: 5%;
+  margin-top: -3%;
+}
+
 .wallet-body {
   display: flex;
   flex-flow: column nowrap;

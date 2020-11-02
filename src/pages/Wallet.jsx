@@ -4,31 +4,48 @@ import { connect } from 'react-redux';
 import trybeWallet from '../images/trybe_wallet_white_2.png'
 import { Redirect } from 'react-router-dom';
 import { fetchCurrencies } from '../redux/actions/fetchCurrencies';
-import DetailedBalance from '../components/DetailedBalance';
-import AccountBalance from '../components/AccountBalance';
+import { DetailedBalance, AccountBalance } from '../components';
+import { DateSelect } from '../components/sub-components';
 import '../layout_general/style_sheets_general/dashboard-controls.css';
+import { months, currentMonth, returnSelectedDropdown, filterByMonth } from '../utils'; 
 
 class Wallet extends React.Component {
   constructor() {
     super();
 
     this.addTransaction = this.addTransaction.bind(this);
+    this.handleDateSelect = this.handleDateSelect.bind(this);
 
     this.state = {
       redirect: '',
+      currentMonth: '',
+      transactions: [],
     }
   }
 
   componentDidMount() {
-    const { dispatchFetchCurrencies, currencies } = this.props;
+    const { dispatchFetchCurrencies, currencies, transactions } = this.props;
     if(currencies.length === 1) {
       dispatchFetchCurrencies();
     }
 
+    this.setState({ currentMonth: currentMonth, transactions })
   }
 
   addTransaction() {
     this.setState({ redirect: '/addtransaction' })
+  }
+
+  handleDateSelect(event) {
+    const { key, selected } = returnSelectedDropdown(event);
+    const { transactions } = this.props;
+
+    const filteredMonth = filterByMonth(transactions, selected);
+
+    this.setState((currentState) => ({
+      transactions: filteredMonth,
+      [key]: selected,
+    }))
   }
 
   render() {
@@ -37,7 +54,8 @@ class Wallet extends React.Component {
       return <Redirect to={ redirect } />
     }
 
-    const { userEmail, transactions } = this.props;
+    const { userEmail } = this.props;
+    const { currentMonth, transactions } = this.state;
     return (
       <div>
       <header className="wallet-header">
@@ -45,11 +63,14 @@ class Wallet extends React.Component {
           <img src={ trybeWallet } width="200px" alt="Trybe Wallet Logo" />
           <p className="header-text"><b>Despesa Total: </b>0 BRL</p>
       </header>
+      
       <main className="wallet-body">
 
-        <AccountBalance className="dashboard-control" />
+        <DateSelect months={ months } currentMonth={ currentMonth } handleDateSelect={ this.handleDateSelect } />
+
+        <AccountBalance className="dashboard-control" transactions={ transactions } />
         
-        <DetailedBalance className="dashboard-control" />
+        <DetailedBalance className="dashboard-control" transactions={ transactions } />
 
         <button className='trybe-btn-1 register-expense-button' onClick={ this.addTransaction }>
           +

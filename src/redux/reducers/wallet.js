@@ -18,7 +18,13 @@ const INITIAL_STATE = {
       method: 'Cash',
       category: 'Bills',
       originAccount: 'Wallet',
-      id: 0
+      id: 0,
+      date: {
+        fullData: '2020-11-02T21:59:04.813Z',
+        year: 2020,
+        month: 10,
+        day: 2
+      }
     },
     {       
       transactionType: 'Expense',
@@ -28,7 +34,13 @@ const INITIAL_STATE = {
       method: 'Credit',
       category: 'Education',
       originAccount: 'Savings account',
-      id: 1
+      id: 1,
+      date: {
+        fullData: '2020-11-02T21:59:04.813Z',
+        year: 2020,
+        month: 9,
+        day: 3
+      }
     },
     {       
       transactionType: 'Expense',
@@ -38,7 +50,13 @@ const INITIAL_STATE = {
       method: 'Cash',
       category: 'Home',
       originAccount: 'Wallet',
-      id: 0
+      id: 0,
+      date: {
+        fullData: '2020-11-02T21:59:04.813Z',
+        year: 2020,
+        month: 10,
+        day: 10
+      }
     },
     {       
       transactionType: 'Income',
@@ -48,7 +66,13 @@ const INITIAL_STATE = {
       method: 'Cash',
       category: 'Bills',
       originAccount: 'Wallet',
-      id: 2
+      id: 2,
+      date: {
+        fullData: '2020-11-02T21:59:04.813Z',
+        year: 2020,
+        month: 10,
+        day: 2
+      }
     },
     {       
       transactionType: 'Income',
@@ -58,7 +82,13 @@ const INITIAL_STATE = {
       method: 'Credit',
       category: 'Education',
       originAccount: 'Savings account',
-      id: 3
+      id: 3,
+      date: {
+        fullData: '2020-11-02T21:59:04.813Z',
+        year: 2020,
+        month: 10,
+        day: 10
+      }
     },
   ]
 }

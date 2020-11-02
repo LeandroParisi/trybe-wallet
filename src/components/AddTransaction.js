@@ -6,6 +6,7 @@ import './style_sheets/AddTransaction.css';
 import AddTransactionHeader from './AddTransactionHeader';
 import AutoCompleteInput from './sub-components/AutoCompleteInput';
 import { assembleTransaction } from '../redux/actions';
+import { generateTransaction } from '../utils';
 
 class AddTransaction extends React.Component {
   constructor() {
@@ -52,27 +53,12 @@ class AddTransaction extends React.Component {
     }
   }
 
-  handleButtonClick({ transactionType, value, description, currency, method, category, originAccount, destinationAccount }) {
+  handleButtonClick() {
     const { dispatchSaveExpense } = this.props;
 
-    const valueNumber = Number(value);
+    const transaction = generateTransaction(this.state);
 
-    const expense = {
-      transactionType,
-      value: valueNumber,
-      description,
-      currency,
-      method,
-      category,
-      originAccount,
-      destinationAccount
-    };
-
-    if(destinationAccount === '') {
-      delete expense.destinationAccount;
-    }
-
-    dispatchSaveExpense(expense);
+    dispatchSaveExpense(transaction);
   }
 
   render() {
@@ -135,7 +121,7 @@ class AddTransaction extends React.Component {
             }
             </div>
 
-            <button type="button" className={`trybe-btn-1 ${transactionType}`} onClick={ () => this.handleButtonClick(this.state) }>
+            <button type="button" className={`trybe-btn-1 ${transactionType}`} onClick={ () => this.handleButtonClick() }>
               Register
             </button>
 
