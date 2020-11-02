@@ -1,47 +1,79 @@
 import React from 'react';
-import './style_sheets/TransactionsDashboard.css'
+import './style_sheets/DetailedBalance.css'
 import { connect } from 'react-redux';
-import { returnSeletedDropdown } from '../utils'
+import { returnSelectedDropdown, filterByCategoryAndPaymentMethod, filterByCategory, filterByPaymentMethod, filterByType, calculateTransactions } from '../utils'
 import DashboardControlValues from './sub-components/DashboardControlValues';
 
-class TransactionsDashboard extends React.Component {
+class DetailedBalance extends React.Component {
   constructor() {
     super();
         
     this.state = {
       transactionType: 'Expense',
-      filteredTransactions: {}
+      category: 'All',
+      paymentMethod: 'All',
+      filteredByType: [],
+      filteredByCategoryAndMethod: [],
     }
-  } 
+  }
+
+  componentDidMount() {
+    const { transactionType } = this.state;
+    const { transactions } = this.props;
+
+    const filteredByType = filterByType(transactions, transactionType);
+
+    this.setState((currentState) => ({
+      ...currentState,
+      filteredByType,
+      filteredByCategoryAndMethod: filteredByType,
+    }))
+  }
+
+  filterSwitch(key, selected) {
+    const { paymentMethod, category } = this.state;
+
+    if (key === 'category') {
+      const { filteredByType } = this.state;
+      const filteredByCategoryAndMethod = filterByCategoryAndPaymentMethod(filteredByType, selected, paymentMethod);
+
+      return { filteredByType, filteredByCategoryAndMethod }
+
+    } else if (key === 'paymentMethod') {
+      const { filteredByType } = this.state;
+      const filteredByCategoryAndMethod = filterByCategoryAndPaymentMethod(filteredByType, category, selected);
+
+      return { filteredByType, filteredByCategoryAndMethod }
+
+    } if (key === 'transactionType') {
+      const { transactions } = this.props;
+
+      const filteredByType = filterByType(transactions, selected);
+      const filteredByCategoryAndMethod = filterByCategoryAndPaymentMethod(filteredByType, category, paymentMethod);
+      
+      return { filteredByType, filteredByCategoryAndMethod }
+    }
+  }
 
   handleSelectChange(event) {
-    const { key, selected } = returnSeletedDropdown(event);
-    this.setState({ [key]: selected })
-  }
+    const { key, selected } = returnSelectedDropdown(event);
 
-  filterByType(transactions, type) {
-    return transactions.filter(transaction => transaction.transactionType === type)
-  }
+    const { filteredByType, filteredByCategoryAndMethod } = this.filterSwitch(key, selected)
 
-  calculateTransactions(transactions) {
-    return transactions.map(transaction => transaction.value).reduce((a, b) => a + b, 0)
-  }
-
-  calculateFinalValue() {
-    let { transactions } = this.props;
-    const { transactionType } = this.state;
-    
-    transactions = this.filterByType(transactions, transactionType); 
-
-    const finalSum = this.calculateTransactions(transactions);
-
-    return transactionType === 'Expense' ? -finalSum : finalSum 
+    this.setState((currentState) => ({ 
+      ...currentState,
+      [key]: selected,
+      filteredByType,
+      filteredByCategoryAndMethod
+    }))
   }
 
   render() {
-  const { currencies, transactions, paymentMethods, categories, typeOfTransactions, className } = this.props;
-  const { transactionType } = this.state;
-  const value = this.calculateFinalValue()
+    const { paymentMethods, categories, typeOfTransactions, className } = this.props;
+    const { filteredByCategoryAndMethod, transactionType } = this.state;
+
+    const value = calculateTransactions(filteredByCategoryAndMethod);
+    
     return (
       <div className="dashboard-control-container">
         <span className="mini-title">Detailed Balance:</span>
@@ -89,4 +121,4 @@ const mapStateToProps = (state) => ({
   typeOfTransactions: state.config.typeOfTransactions,
 })
 
-export default connect(mapStateToProps)(TransactionsDashboard);
+export default connect(mapStateToProps)(DetailedBalance);

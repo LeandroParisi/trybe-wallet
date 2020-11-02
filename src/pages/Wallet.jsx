@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import trybeWallet from '../images/trybe_wallet_white_2.png'
 import { Redirect } from 'react-router-dom';
 import { fetchCurrencies } from '../redux/actions/fetchCurrencies';
-import TransactionsDashboard from '../components/TransactionsDashboard';
+import DetailedBalance from '../components/DetailedBalance';
 import AccountBalance from '../components/AccountBalance';
 import '../layout_general/style_sheets_general/dashboard-controls.css';
 
@@ -49,7 +49,7 @@ class Wallet extends React.Component {
 
         <AccountBalance className="dashboard-control" />
         
-        <TransactionsDashboard className="dashboard-control" />
+        <DetailedBalance className="dashboard-control" />
 
         <button className='trybe-btn-1 register-expense-button' onClick={ this.addTransaction }>
           +

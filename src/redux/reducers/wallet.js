@@ -12,7 +12,7 @@ const INITIAL_STATE = {
   transactions: [
     {       
       transactionType: 'Expense',
-      value: 123, 
+      value: 123.50, 
       description: 'mocked expense 1',
       currency: 'BRL',
       method: 'Cash',
@@ -31,8 +31,18 @@ const INITIAL_STATE = {
       id: 1
     },
     {       
+      transactionType: 'Expense',
+      value: 123.50, 
+      description: 'mocked expense 1',
+      currency: 'BRL',
+      method: 'Cash',
+      category: 'Home',
+      originAccount: 'Wallet',
+      id: 0
+    },
+    {       
       transactionType: 'Income',
-      value: 100, 
+      value: 200.21, 
       description: 'mocked Income 1',
       currency: 'BRL',
       method: 'Cash',

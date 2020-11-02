@@ -29,7 +29,7 @@ class AccountBalance extends Component {
     if (incomes > expenses) {
       return incomes - expenses
     } else if (expenses > incomes) {
-      return `-${expenses - incomes}`
+      return -(expenses - incomes)
     } else {
       return 0
     }
