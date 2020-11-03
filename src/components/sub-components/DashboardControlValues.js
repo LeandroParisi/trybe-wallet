@@ -11,7 +11,10 @@ class DashboardControlValues extends Component {
     return (
       <div className="icon-value-container">
         <FontAwesomeIcon icon={ faDollarSign } className={ `control-icons ${transactionType}` } />
-        <span className={ `${ transactionType } `}>{ formattedNumber }</span>
+
+        <span className={ transactionType }>
+          { transactionType === "Income" ? formattedNumber : -formattedNumber }
+        </span>
       </div>
     )
   }

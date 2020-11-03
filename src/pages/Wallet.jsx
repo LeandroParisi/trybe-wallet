@@ -1,10 +1,9 @@
 import React from 'react';
 import './style_sheets/Wallet.css';
 import { connect } from 'react-redux';
-import trybeWallet from '../images/trybe_wallet_white_2.png'
 import { Redirect } from 'react-router-dom';
 import { fetchCurrencies } from '../redux/actions/fetchCurrencies';
-import { DetailedBalance, AccountBalance } from '../components';
+import { DetailedBalance, AccountBalance, MonthlyBalance, WalletHeader } from '../components';
 import { DateSelect } from '../components/sub-components';
 import '../layout_general/style_sheets_general/dashboard-controls.css';
 import { months, currentMonth, returnSelectedDropdown, filterByMonth } from '../utils'; 
@@ -56,19 +55,19 @@ class Wallet extends React.Component {
 
     const { userEmail } = this.props;
     const { currentMonth, transactions } = this.state;
+
     return (
       <div>
-      <header className="wallet-header">
-          <p className="header-text"><b>User: </b>{ userEmail }</p>
-          <img src={ trybeWallet } width="200px" alt="Trybe Wallet Logo" />
-          <p className="header-text"><b>Despesa Total: </b>0 BRL</p>
-      </header>
+
+      <WalletHeader userEmail={ userEmail } />
       
       <main className="wallet-body">
 
         <DateSelect months={ months } currentMonth={ currentMonth } handleDateSelect={ this.handleDateSelect } />
 
         <AccountBalance className="dashboard-control" transactions={ transactions } />
+
+        <MonthlyBalance className="dashboard-control" transactions={ transactions } />
         
         <DetailedBalance className="dashboard-control" transactions={ transactions } />
 

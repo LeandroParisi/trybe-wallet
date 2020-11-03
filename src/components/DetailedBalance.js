@@ -17,7 +17,7 @@ class DetailedBalance extends React.Component {
     }
   }
 
-  componentDidMount() {
+  setInicialTransactions() {
     const { transactionType } = this.state;
     const { transactions } = this.props;
 

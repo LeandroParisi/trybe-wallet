@@ -6,6 +6,8 @@ export function returnSelectedDropdown({ nativeEvent }) {
 }
 
 
+// Filters
+
 export function filterByType(transactions, type) {
   return transactions.filter(transaction => transaction.transactionType === type)
 }
@@ -30,6 +32,23 @@ export function filterByPaymentMethod(transactions, method) {
   } else {
     return transactions.filter(transaction => transaction.method === method)
   }
+}
+
+
+// Transactions
+
+export function calculateIncomesAndExpenses(transactions) {
+  const incomes = transactions
+    .filter(transaction => transaction.transactionType === 'Income')
+    .map(transaction  => transaction.value)
+    .reduce((a, b) => a + b, 0);
+
+  const expenses = transactions
+    .filter(transaction => transaction.transactionType === 'Expense')
+    .map(transaction  => transaction.value)
+    .reduce((a, b) => a + b, 0)
+
+  return { incomes, expenses }
 }
 
 export function calculateTransactions(transactions) {
@@ -59,6 +78,9 @@ export function generateTransaction({ transactionType, value, description, curre
 
   return transaction;
 }
+
+
+// -- Dates
 
 function createDateDetails() {
   const date = new Date();

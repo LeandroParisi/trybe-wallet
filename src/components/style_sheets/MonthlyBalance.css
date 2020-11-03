@@ -1,0 +1,14 @@
+.monthly-balance-flex-line {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin: 0 20%;
+  padding: 5% 0;
+}
+
+.monthly-balance-flex-line p, h4 {
+  font-size: calc(10px + 0.8vw);
+  color: rgb(75, 75, 75);
+  margin: 0;
+  padding: 0
+}

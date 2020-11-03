@@ -2,15 +2,6 @@ import React, { Component } from 'react';
 import DashboardControlValues from './sub-components/DashboardControlValues';
 
 class AccountBalance extends Component {
-  constructor() {
-    super();
-
-    this.calculateTransactions = this.calculateTransactions.bind(this);
-
-    this.state = {
-      value: 0,
-    }
-  }
 
   calculateTransactions() {
     const { transactions } = this.props;
@@ -26,18 +17,24 @@ class AccountBalance extends Component {
       .reduce((a, b) => a + b, 0)
 
     if (incomes > expenses) {
-      return incomes - expenses
+      const value = incomes - expenses;
+      const transactionType = 'Income'
+      return { value, transactionType }
     } else if (expenses > incomes) {
-      return -(expenses - incomes)
+      const value = expenses - incomes;
+      const transactionType = 'Expense'
+      return { value, transactionType }
     } else {
-      return 0
+      const value = 0;
+      const transactionType = ''
+      return { value, transactionType }
     }
   }
 
   render() {
     const { className } = this.props;
-    const value = this.calculateTransactions()
-    const transactionType = value < 0 ? 'Expense' : 'Income'; 
+    const { value, transactionType } = this.calculateTransactions();
+
     return (
       <div className="dashboard-control-container">
       <span className="mini-title">Account Balance:</span>
