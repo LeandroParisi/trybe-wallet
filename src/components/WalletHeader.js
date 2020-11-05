@@ -5,6 +5,7 @@ import { faCogs } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HeaderSubMenu from './sub-components/HeaderSubMenu';
 import { render } from '@testing-library/react';
+import { withRouter } from 'react-router-dom';
 
 class WalletHeader extends React.Component {
   constructor() {
@@ -13,7 +14,8 @@ class WalletHeader extends React.Component {
     this.setSubMenu = this.setSubMenu.bind(this);
 
     this.state = {
-      subMenuDisplay: false
+      subMenuDisplay: false,
+      iconColor: 'white',
     }
   }
 
@@ -21,24 +23,30 @@ class WalletHeader extends React.Component {
     const { subMenuDisplay } = this.state;
 
     if (subMenuDisplay) {
-      this.setState({ subMenuDisplay: false })
+      this.setState({ 
+        subMenuDisplay: false,
+        iconColor: 'white',
+      })
     } else {
-      this.setState({ subMenuDisplay: true })
+      this.setState({
+        subMenuDisplay: true,
+        iconColor: 'rgb(200, 200, 200)',
+      })
     }
   }
 
   render() {
-    const { subMenuDisplay } = this.state;
+    const { subMenuDisplay, iconColor } = this.state;
     return (
       <div>
         <header className="wallet-header">
           <img className='logo' src={ trybeWallet } width="200px" alt="Trybe Wallet Logo" />
-          <nav className='menu' onClick={ this.setSubMenu }>
-            <FontAwesomeIcon icon={ faCogs } />
+          <nav className='menu' onMouseEnter={ this.setSubMenu }>
+            <FontAwesomeIcon icon={ faCogs } color={ iconColor } />
           </nav>
         </header>
 
-        <HeaderSubMenu display={ subMenuDisplay } />
+        <HeaderSubMenu display={ subMenuDisplay } event={ this.setSubMenu } />
       
       </div>
     )

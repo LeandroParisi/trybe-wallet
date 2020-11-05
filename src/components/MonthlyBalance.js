@@ -14,11 +14,11 @@ function MonthlyBalance ({ className, transactions }) {
       <section className={ className }>
           <div class="monthly-balance-flex-line">
             <h4>Incomes</h4>
-            <p>{ incomes }</p>
+            <p>{ Math.round((incomes * 100) / 100).toFixed(2) }</p>
           </div>
           <div class="monthly-balance-flex-line">
             <h4>Expenses</h4>
-            <p>-{ expenses }</p>
+            <p>-{ Math.round((expenses * 100) / 100).toFixed(2) }</p>
           </div>
           <hr />
       

@@ -1,0 +1,46 @@
+#display.slide-menu {
+  background-color: rgb(0,51,0);
+  color: white;
+  position: fixed;
+  right: 0;
+  width: 25%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  transition-duration: 1.3s;
+  transition-property: right;
+}
+
+#hidden.slide-menu {
+  visibility: hidden;
+  transition-duration: 2s;
+  position: absolute;
+  right: -25vw;
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  color: white;
+  background-color: white;
+  z-index: 1;
+}
+
+.slide-menu-option {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15%;
+}
+
+.slide-menu-option p, b {
+  font-size: calc(8px + 0.8vw)
+}
+
+.slide-menu-option select {
+  width: 80%;
+  font-size: calc(10px + 0.8vw);
+}

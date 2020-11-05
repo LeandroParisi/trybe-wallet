@@ -1,0 +1,25 @@
+.sub-menu-config {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  cursor: pointer;
+}
+
+.sub-menu-config.opened {
+  color: white;
+}
+
+.sub-menu-config.closed {
+  color: rgb(200, 200, 200);
+}
+
+.sub-menu-config p {
+  font-size: calc(10px + 0.5vw);
+}
+
+.sub-menu-config select {
+  width: 50%;
+}
+

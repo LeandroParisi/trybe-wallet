@@ -1,0 +1,41 @@
+.edit-account-container {
+  border: 1px solid rgb(150, 150, 150);
+  width: 80%;
+  margin: auto;
+  margin-top: 2.5%;
+  padding: 5%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  transition-duration: 0.5s;
+}
+
+.edit-account-container.Add {
+  border: 2px solid rgb(40, 140, 40);
+  transition-duration: 0.5s;
+}
+
+.edit-account-container.Subtract {
+  border: 2px solid rgb(200, 0, 0);
+  transition-duration: 0.5s;
+}
+
+.edit-mode-container {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 50%;
+  justify-content: space-between;
+}
+
+.edit-account-container select, input {
+  width: 80%;
+  font-size: calc(5px + 0.8vw);
+  text-align: center;
+  margin-top: 5%;
+}
+
+.trybe-btn-1.save-button {
+  margin-top: 5%;
+}
+

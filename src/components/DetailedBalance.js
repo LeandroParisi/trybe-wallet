@@ -17,6 +17,19 @@ class DetailedBalance extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.setInicialTransactions();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const prevPropsJson = JSON.stringify(prevProps.transactions);
+    const nextPropsJson = JSON.stringify(this.props.transactions);
+
+    if (prevPropsJson !== nextPropsJson) {
+      this.setInicialTransactions()
+    }
+  }
+
   setInicialTransactions() {
     const { transactionType } = this.state;
     const { transactions } = this.props;
@@ -25,6 +38,8 @@ class DetailedBalance extends React.Component {
 
     this.setState((currentState) => ({
       ...currentState,
+      category: 'All',
+      paymentMethod: 'All',
       filteredByType,
       filteredByCategoryAndMethod: filteredByType,
     }))
@@ -70,7 +85,7 @@ class DetailedBalance extends React.Component {
 
   render() {
     const { paymentMethods, categories, typeOfTransactions, className } = this.props;
-    const { filteredByCategoryAndMethod, transactionType } = this.state;
+    const { filteredByCategoryAndMethod, transactionType, category, paymentMethod } = this.state;
 
     const value = calculateTransactions(filteredByCategoryAndMethod);
     
@@ -80,6 +95,7 @@ class DetailedBalance extends React.Component {
         <section className={ `transaction-dashboard ${ className }` }>
           <div className="transaction-control">
             <div className="transaction-control-selectors">
+
               <label htmlFor='transactionType' className='filter-container'>
                 <span className='mini-title'>Transaction Type</span>
                 <select id='transactionType' className="select-filter" name="transactionType" onChange={ (event) => this.handleSelectChange(event) }>
@@ -89,7 +105,7 @@ class DetailedBalance extends React.Component {
 
               <label htmlFor='category' className='filter-container'>
                 <span className='mini-title'>Category</span>
-                <select id='category' className="select-filter" name="category" onChange={ (event) => this.handleSelectChange(event) }>
+                <select id='category' className="select-filter" value={ category }name="category" onChange={ (event) => this.handleSelectChange(event) }>
                   <option selected>All</option>
                   { categories.map(category => <option>{ category }</option>)}
                 </select>
@@ -97,7 +113,7 @@ class DetailedBalance extends React.Component {
 
               <label htmlFor='paymentMethod' className='filter-container'>
                 <span className='mini-title'>Payment Method</span>
-                <select id='paymentMethod' className="select-filter" name="paymentMethod" onChange={ (event) => this.handleSelectChange(event) }>
+                <select id='paymentMethod' className="select-filter" name="paymentMethod" value={ paymentMethod } onChange={ (event) => this.handleSelectChange(event) }>
                   <option selected>All</option>
                   { paymentMethods.map(method => <option>{ method }</option>)}
                 </select>

@@ -13,9 +13,14 @@
   margin-top: 5%;
 }
 
+.dashboard-control-container .trybe-btn-1 {
+  margin-top: 0%;
+  font-size: calc(8px + 0.8vw)
+}
+
 .register-expense-button {
   position: fixed;
-  right: 10px;
+  left: 10px;
   bottom: 10px;
   border-radius: 100%;
   box-shadow: 2px 2px 2px 2px rgba(0,0,0, 0.6);

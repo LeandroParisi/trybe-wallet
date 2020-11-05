@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../layout_general/style_sheets_general/wholePageComponent.css';
 import './style_sheets/AddTransaction.css';
-import AddTransactionHeader from './AddTransactionHeader';
-import AutoCompleteInput from './sub-components/AutoCompleteInput';
+import AddTransactionHeader from '../components/AddTransactionHeader';
+import AutoCompleteInput from '../components/sub-components/AutoCompleteInput';
 import { assembleTransaction } from '../redux/actions';
 import { generateTransaction } from '../utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 class AddTransaction extends React.Component {
   constructor() {
@@ -126,6 +129,13 @@ class AddTransaction extends React.Component {
             </button>
 
           </section>
+
+          <Link to='/wallet'>
+            <button className='trybe-btn-1 register-expense-button'>
+              <FontAwesomeIcon icon={ faAngleDoubleLeft } size="1x" />
+            </button>
+          </Link>
+
         </section>
       </section>
     )
@@ -135,7 +145,7 @@ class AddTransaction extends React.Component {
 const mapStateToProps = (state) => ({
   paymentMethods: state.config.paymentMethods,
   categories: state.config.categories,
-  accounts: state.config.accounts,
+  accounts: Object.keys(state.config.accounts),
   currencies: state.wallet.currencies,
 })
 

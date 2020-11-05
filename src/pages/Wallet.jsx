@@ -1,7 +1,7 @@
 import React from 'react';
 import './style_sheets/Wallet.css';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { fetchCurrencies } from '../redux/actions/fetchCurrencies';
 import { DetailedBalance, AccountBalance, MonthlyBalance, WalletHeader } from '../components';
 import { DateSelect } from '../components/sub-components';
@@ -9,30 +9,32 @@ import '../layout_general/style_sheets_general/dashboard-controls.css';
 import { months, currentMonth, returnSelectedDropdown, filterByMonth } from '../utils'; 
 
 class Wallet extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
 
-    this.addTransaction = this.addTransaction.bind(this);
     this.handleDateSelect = this.handleDateSelect.bind(this);
 
     this.state = {
       redirect: '',
-      currentMonth: '',
-      transactions: [],
+      currentMonth: currentMonth,
+      transactions: props.transactions,
     }
   }
 
   componentDidMount() {
-    const { dispatchFetchCurrencies, currencies, transactions } = this.props;
+    const { dispatchFetchCurrencies, currencies } = this.props;
     if(currencies.length === 1) {
       dispatchFetchCurrencies();
     }
-
-    this.setState({ currentMonth: currentMonth, transactions })
   }
 
-  addTransaction() {
-    this.setState({ redirect: '/addtransaction' })
+  componentDidUpdate(prevProps) {
+    if(prevProps.transactions !== this.props.transactions) {
+      this.setState(currentState => ({
+        ...currentState,
+        transactions: this.props.transactions
+      }))
+    }
   }
 
   handleDateSelect(event) {
@@ -40,28 +42,24 @@ class Wallet extends React.Component {
     const { transactions } = this.props;
 
     const filteredMonth = filterByMonth(transactions, selected);
+    console.log(filteredMonth)
 
-    this.setState((currentState) => ({
+    this.setState(() => ({
       transactions: filteredMonth,
       [key]: selected,
     }))
   }
 
   render() {
-    const { redirect } = this.state;
-    if(redirect !== '') {
-      return <Redirect to={ redirect } />
-    }
 
-    const { userEmail } = this.props;
     const { currentMonth, transactions } = this.state;
 
     return (
       <div>
 
-      <WalletHeader userEmail={ userEmail } />
+      <WalletHeader />
       
-      <main className="wallet-body">
+      <main className="wallet-body" >
 
         <DateSelect months={ months } currentMonth={ currentMonth } handleDateSelect={ this.handleDateSelect } />
 
@@ -71,9 +69,11 @@ class Wallet extends React.Component {
         
         <DetailedBalance className="dashboard-control" transactions={ transactions } />
 
-        <button className='trybe-btn-1 register-expense-button' onClick={ this.addTransaction }>
-          +
-        </button>
+        <Link to='addtransaction'>
+          <button className='trybe-btn-1 register-expense-button'>
+            +
+          </button>
+        </Link>
       </main>
       </div>
     )
@@ -81,7 +81,6 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  userEmail: state.user.email,
   currencies: state.wallet.currencies,
   transactions: state.wallet.transactions,
   paymentMethods: state.config.paymentMethods,

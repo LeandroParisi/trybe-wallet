@@ -10,11 +10,11 @@ export const saveTransaction = (payload) => ({
 export const assembleTransaction = (transaction) => {
   return async (dispatch) => {
     const exchangeRates = await fetchExchangeRates();
-    const assembledTransaction = assemble(transaction, exchangeRates);
+    const assembledTransaction = { ...transaction, exchangeRates};
     dispatch(saveTransaction(assembledTransaction));
   }
 }
 
-function assemble(transaction, currencyRates) {
-  return { ... transaction, currencyRates }
+function assemble(transaction, exchangeRates) {
+  return { ... transaction, exchangeRates }
 }

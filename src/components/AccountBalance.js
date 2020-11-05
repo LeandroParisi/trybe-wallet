@@ -1,51 +1,59 @@
 import React, { Component } from 'react';
 import DashboardControlValues from './sub-components/DashboardControlValues';
+import DashboardControlEdit  from './sub-components/DashboardControlEdit';
+import { connect } from 'react-redux';
+import { calculateAccounsTotalBalance, calculateIncomesAndExpenses } from '../utils';
 
 class AccountBalance extends Component {
+  constructor() {
+    super();
 
-  calculateTransactions() {
-    const { transactions } = this.props;
+    this.editAccoutButton = this.editAccoutButton.bind(this);
 
-    const incomes = transactions
-      .filter(transaction => transaction.transactionType === 'Income')
-      .map(transaction  => transaction.value)
-      .reduce((a, b) => a + b, 0);
+    this.state = {
+      editAccount: false,
+    }
+  }
 
-    const expenses = transactions
-      .filter(transaction => transaction.transactionType === 'Expense')
-      .map(transaction  => transaction.value)
-      .reduce((a, b) => a + b, 0)
-
-    if (incomes > expenses) {
-      const value = incomes - expenses;
-      const transactionType = 'Income'
-      return { value, transactionType }
-    } else if (expenses > incomes) {
-      const value = expenses - incomes;
-      const transactionType = 'Expense'
-      return { value, transactionType }
+  editAccoutButton() {
+    const { editAccount } = this.state;
+    if(editAccount) {
+      this.setState({ editAccount: false})
     } else {
-      const value = 0;
-      const transactionType = ''
-      return { value, transactionType }
+      this.setState({ editAccount: true })
     }
   }
 
   render() {
-    const { className } = this.props;
-    const { value, transactionType } = this.calculateTransactions();
+    const { className, transactions, accounts } = this.props;
+    const { incomes, expenses } = calculateIncomesAndExpenses(transactions);
+    const { editAccount } = this.state;
+    const accountsTotal = calculateAccounsTotalBalance(accounts)
+    const finalBalance = accountsTotal + incomes - expenses;
+    const transactionType = finalBalance > 0 ? "Income" : "Expense"
 
     return (
       <div className="dashboard-control-container">
       <span className="mini-title">Account Balance:</span>
         <section className={ `balance-dashboard ${ className }` }>
 
-        <DashboardControlValues value={ value } transactionType={ transactionType }/>
+        <DashboardControlValues value={ finalBalance } transactionType={ transactionType }/>
 
+        <hr />
+
+        <button className="trybe-btn-1" onClick={ this.editAccoutButton }>
+          Edit accounts
+        </button>
+        {editAccount ? <DashboardControlEdit /> : null}
+        
         </section>
       </div>
     )
   }
 }
 
-export default AccountBalance;
+const mapStateToProps = (state) => ({
+  accounts: state.config.accounts,
+})
+
+export default connect(mapStateToProps)(AccountBalance);

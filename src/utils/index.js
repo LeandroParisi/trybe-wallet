@@ -5,7 +5,6 @@ export function returnSelectedDropdown({ nativeEvent }) {
   return { key, selected };
 }
 
-
 // Filters
 
 export function filterByType(transactions, type) {
@@ -40,19 +39,19 @@ export function filterByPaymentMethod(transactions, method) {
 export function calculateIncomesAndExpenses(transactions) {
   const incomes = transactions
     .filter(transaction => transaction.transactionType === 'Income')
-    .map(transaction  => transaction.value)
+    .map(transaction  => transaction.convertedValue.value)
     .reduce((a, b) => a + b, 0);
 
   const expenses = transactions
     .filter(transaction => transaction.transactionType === 'Expense')
-    .map(transaction  => transaction.value)
+    .map(transaction  => transaction.convertedValue.value)
     .reduce((a, b) => a + b, 0)
 
   return { incomes, expenses }
 }
 
 export function calculateTransactions(transactions) {
-  return transactions.map(transaction => transaction.value).reduce((a, b) => a + b, 0)
+  return transactions.map(transaction => transaction.convertedValue.value).reduce((a, b) => a + b, 0)
 }
 
 export function generateTransaction({ transactionType, value, description, currency, method, category, originAccount, destinationAccount }) {
@@ -63,6 +62,7 @@ export function generateTransaction({ transactionType, value, description, curre
   const transaction = {
     transactionType,
     value: valueNumber,
+    convertedValue: { value: valueNumber, currency },
     description,
     currency,
     method,
@@ -79,6 +79,12 @@ export function generateTransaction({ transactionType, value, description, curre
   return transaction;
 }
 
+// -- Accounts
+export function calculateAccounsTotalBalance(accounts) {
+  const values = Object.values(accounts);
+  return values.reduce((a, b) => a + b)
+
+}
 
 // -- Dates
 
@@ -143,4 +149,38 @@ export const currentMonth = monthsNumberValue[new Date().getMonth()];
 export const filterByMonth = (transactions, month) => {
   const monthId = monthsNumberKey[month];
   return transactions.filter(transaction => transaction.date.month === monthId)
+}
+
+
+// -- Convert Values:
+
+export function convertValues(transactions, currency) {
+  const newTransactions = [];
+
+  transactions.forEach(transaction => {
+    const currentCurrency = transaction.convertedValue.currency;
+    
+    if(currentCurrency === currency) {
+      return newTransactions.push(transaction)
+    } 
+    
+    else {
+      const currentCurrencyToUsd = parseFloat(transaction.exchangeRates.rates[currentCurrency])
+
+      const newCurrencyToUsd = parseFloat(transaction.exchangeRates.rates[currency])
+
+      const convertedValue = (transaction.convertedValue.value / currentCurrencyToUsd) * newCurrencyToUsd;
+
+      const updatedTransaction = { 
+        ...transaction,
+        convertedValue: {
+          value: convertedValue,
+          currency
+        }
+      }
+      newTransactions.push(updatedTransaction)
+    }
+  })
+
+  return newTransactions;
 }
