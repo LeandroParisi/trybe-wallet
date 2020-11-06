@@ -12,12 +12,14 @@ class DashboardControlEdit extends React.Component {
     this.setEditMode = this.setEditMode.bind(this);
     this.setAmount = this.setAmount.bind(this);
     this.saveAccountEdit = this.saveAccountEdit.bind(this);
-
+    this.showFeedback = this.showFeedback.bind(this);
+    this.closeButton = this.closeButton.bind(this);
 
     this.state = {
       selectedAccount: "",
       editMode: "",
       value: '',
+      saveFeedback: false,
     }
   }
 
@@ -52,16 +54,36 @@ class DashboardControlEdit extends React.Component {
     } else {
       dispatchSubtractFromAccount(payload)
     }
+
+    this.showFeedback();
+  }
+
+  async showFeedback() {
+    this.setState({ saveFeedback: true });
+
+    setTimeout(() => {
+      this.setState({ saveFeedback: false })
+    }, 3500)
+  }
+
+  closeButton () {
+    const { closeContainer } = this.props;
+    closeContainer();
+
   }
 
   render() {
     const { accounts } = this.props;
-    const { selectedAccount, editMode, value } = this.state;
+    const { selectedAccount, editMode, value, saveFeedback } = this.state;
 
     return (
       <section className='dashboard-control-edit'>
 
         <div className={`edit-account-container ${editMode}`}>
+
+          <button className="trybe-btn-1 close-btn" onClick={ this.closeButton }>
+            X
+          </button>
 
           <div className="edit-mode-container">
             <button name="Add" className="Income trybe-btn-1" onClick={ this.setEditMode }>
@@ -97,6 +119,11 @@ class DashboardControlEdit extends React.Component {
             <button className="trybe-btn-1 save-button" onClick={ this.saveAccountEdit }>
               Save!
             </button>
+            : null
+          }
+
+          { saveFeedback 
+            ? <span>Your account was succefully updated!</span>
             : null
           }
         </div>

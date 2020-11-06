@@ -9,6 +9,7 @@
   justify-content: space-around;
   align-items: center;
   transition-duration: 0.5s;
+  position: relative;
 }
 
 .edit-account-container.Add {
@@ -26,6 +27,15 @@
   flex-flow: row nowrap;
   width: 50%;
   justify-content: space-between;
+}
+
+.trybe-btn-1.close-btn {
+  border-radius: 100%;
+  border-width: 1px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: calc(8px + 0.3vw)
 }
 
 .edit-account-container select, input {

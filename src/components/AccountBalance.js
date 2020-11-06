@@ -44,7 +44,7 @@ class AccountBalance extends Component {
         <button className="trybe-btn-1" onClick={ this.editAccoutButton }>
           Edit accounts
         </button>
-        {editAccount ? <DashboardControlEdit /> : null}
+        {editAccount ? <DashboardControlEdit closeContainer={ this.editAccoutButton } /> : null}
         
         </section>
       </div>
